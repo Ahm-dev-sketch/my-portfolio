@@ -1,15 +1,15 @@
 "use client";
 
-import { ArrowUp } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowUp, Mail, Phone } from "lucide-react";
 import { useLanguage } from "@/hooks/useLanguage";
 import { profile } from "@/data/portfolio";
-import { cn } from "@/lib/utils";
 
-/** Brand glyph: this lucide build ships no brand icons. */
 function LinkedInGlyph({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" aria-hidden focusable="false" fill="currentColor" className={className}>
-      <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12Zm1.78 13.02H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45C23.2 24 24 23.23 24 22.27V1.73C24 .77 23.2 0 22.22 0Z" />
+      <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
     </svg>
   );
 }
@@ -32,62 +32,79 @@ export function Footer() {
   };
 
   return (
-    <footer className="border-t border-line bg-canvas">
-      <div className="container-page py-10 md:py-12">
-        <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between md:gap-12">
+    <footer className="bg-[#FEF4EA] border-t border-[#F0E3DC] py-10 sm:py-12 text-[#421623]">
+      <div className="max-w-[1200px] mx-auto px-6 sm:px-8">
+        <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between pb-8 border-b border-[#F0E3DC]">
           <div className="min-w-0 md:flex-1">
-            <a
+            <Link
               href="#home"
+              className="group inline-flex items-center gap-2"
               aria-label={`${t.nav.wordmark} — ${t.nav.items.home}`}
-              className="group inline-flex items-center rounded-xs"
             >
-              <span className="text-[0.8125rem] font-semibold uppercase leading-none tracking-[0.22em] text-ink transition-colors duration-200 group-hover:text-primary">
+              <div className="relative w-4 h-4 shrink-0">
+                <Image
+                  src="/star_dusty_rose.png"
+                  alt="Sparkle"
+                  fill
+                  sizes="16px"
+                  className="object-contain"
+                />
+              </div>
+              <span className="font-serif text-lg font-bold tracking-[0.1em] text-[#421623] transition-colors group-hover:text-[#D47779]">
                 {t.nav.wordmark}
               </span>
-            </a>
+            </Link>
 
-            <p className="type-body mt-4 max-w-[46ch] text-muted">
+            <p className="font-sans text-xs sm:text-sm text-[#7D6B70] mt-2 max-w-[48ch] leading-relaxed">
               {t.hero.card.descriptor}
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2 sm:gap-3 md:shrink-0 md:flex-nowrap md:pt-0.5">
+          <div className="flex flex-wrap items-center gap-2.5 sm:gap-3">
+            <a
+              href={`mailto:${profile.email}`}
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white border border-[#F0E3DC] text-xs font-semibold text-[#421623] hover:text-[#D47779] hover:border-[#D47779] transition-colors shadow-2xs"
+            >
+              <Mail className="w-3.5 h-3.5 text-[#D47779]" />
+              <span>Email</span>
+            </a>
+
+            <a
+              href={profile.whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white border border-[#F0E3DC] text-xs font-semibold text-[#421623] hover:text-[#D47779] hover:border-[#D47779] transition-colors shadow-2xs"
+            >
+              <Phone className="w-3.5 h-3.5 text-[#D47779]" />
+              <span>WhatsApp</span>
+            </a>
+
             <a
               href={profile.linkedinUrl}
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`LinkedIn — ${t.a11y.externalLink}`}
-              className="inline-flex h-10 items-center gap-2 rounded-sm px-2 text-[0.8125rem] font-medium text-muted transition-colors duration-200 hover:text-ink hover:underline hover:underline-offset-4"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white border border-[#F0E3DC] text-xs font-semibold text-[#421623] hover:text-[#D47779] hover:border-[#D47779] transition-colors shadow-2xs"
             >
-              <LinkedInGlyph className="h-[14px] w-[14px] shrink-0" />
+              <LinkedInGlyph className="w-3.5 h-3.5 text-[#D47779]" />
               <span>LinkedIn</span>
-              <span className="sr-only">{t.a11y.externalLink}</span>
             </a>
 
             <button
               type="button"
               onClick={goToTop}
-              aria-label={t.a11y.backToTop}
-              className={cn(
-                "group inline-flex h-10 items-center gap-2 rounded-sm border border-line bg-surface px-3 text-[0.8125rem] font-medium text-ink",
-                "transition-colors duration-200",
-                "hover:border-accent-line hover:bg-accent/60 hover:text-primary",
-              )}
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white border border-[#F0E3DC] text-xs font-semibold text-[#421623] hover:text-[#D47779] hover:border-[#D47779] transition-colors shadow-2xs cursor-pointer"
+              aria-label={t.footer.backToTop}
             >
-              <span className="hidden sm:inline">{t.footer.backToTop}</span>
-              <ArrowUp
-                aria-hidden
-                className="h-4 w-4 transition-transform duration-300 ease-out group-hover:-translate-y-0.5"
-              />
+              <span>{t.footer.backToTop}</span>
+              <ArrowUp className="w-3.5 h-3.5" />
             </button>
           </div>
         </div>
 
-        <div className="rule mt-8 md:mt-10" />
-
-        <div className="mt-5 flex flex-col gap-1.5 text-[0.8125rem] text-muted sm:flex-row sm:items-center sm:justify-between sm:gap-6">
-          <p>{t.footer.rights}</p>
-          <p>{t.footer.builtWith}</p>
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-sans text-[#7D6B70]">
+          <div>{t.footer.rights}</div>
+          <div>{t.footer.builtWith}</div>
         </div>
       </div>
     </footer>

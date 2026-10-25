@@ -37,7 +37,7 @@ export default function Image() {
           }}
         >
           <span>Portfolio · 2026</span>
-          <span style={{ color: "#65736D" }}>Pekanbaru, Indonesia</span>
+          <span style={{ color: "#65736D" }}>Central Tapanuli, North Sumatra</span>
         </div>
 
         <div style={{ display: "flex", alignItems: "flex-end", gap: 56 }}>

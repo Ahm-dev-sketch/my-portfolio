@@ -4,13 +4,13 @@ import { profile } from "@/data/portfolio";
 const en: TranslationContent = {
   meta: {
     title:
-      "Mutiah Ulfa Sitompul | Administration, HR Operations & Information Systems",
+      "Mutiah Ulfa Sitompul | HR Operations, HR Administration & General Administration",
     description:
-      "Explore Mutiah Ulfa Sitompul's professional portfolio, featuring experience in administration, HR development, data management, and UI/UX and frontend projects.",
+      "Explore Mutiah Ulfa Sitompul's professional portfolio, Bachelor of Computer Science from Universitas Riau with experience in HR Operations, Human Resources Administration, and General Administration.",
     ogTitle:
-      "Mutiah Ulfa Sitompul — Administration, HR Operations & Information Systems",
+      "Mutiah Ulfa Sitompul — HR Operations, HR Administration & General Administration",
     ogDescription:
-      "A portfolio of administrative coordination, HR development, data management, and UI/UX and frontend work.",
+      "Professional portfolio of Mutiah Ulfa Sitompul, Bachelor of Computer Science with experience in HR Operations, HR Administration, and General Administration.",
   },
   nav: {
     wordmark: "MUTIAH",
@@ -40,20 +40,21 @@ const en: TranslationContent = {
     eyebrow: "Open to Opportunities",
     headline: profile.headline.en,
     description:
-      "Information Systems graduate with experience in organizational administration, HR development, and digital projects. I bring structure to information, processes, and teamwork.",
+      "Bachelor of Computer Science from Universitas Riau with hands-on experience in HR Operations, organizational administration, and data management. I bring structure to information, operational processes, and team collaboration.",
     primaryCta: "Explore My Experience",
     secondaryCta: "LinkedIn Profile",
+    downloadCvCta: "Download CV",
     card: {
       name: "Mutiah Ulfa Sitompul",
       descriptor:
-        "Information Systems graduate focused on administration, HR operations, and data management.",
+        "Bachelor of Computer Science focused on HR Operations, HR Administration, and General Administration.",
       gpaLabel: "GPA",
       gpaValue: "3.69",
       gpaMeta: "of 4.00 · Universitas Riau",
       summaryLabel: "Focus areas",
-      summary: "Administration · HR Operations · Data Management",
+      summary: "HR Operations · HR Administration · General Administration",
       locationLabel: "Based in",
-      location: "Pekanbaru, Riau, Indonesia",
+      location: profile.location.en,
       availabilityLabel: "Status",
       availability: "Available for opportunities",
     },
@@ -62,10 +63,10 @@ const en: TranslationContent = {
     eyebrow: "About",
     heading: "Organized by nature. Curious by choice.",
     paragraphs: [
-      "I am an Information Systems graduate from the Department of Computer Science at Universitas Riau, with a background in information technology and data processing and a strong interest in Administration and Human Resources (HR).",
-      "Through organizational roles as General Secretary of HIMALKOM FMIPA Universitas Riau and HRD Staff at Universitas Riau Cendekia (URC), I gained experience in correspondence, report preparation, meeting minutes, records management, recruitment support, member orientation, and training coordination.",
-      "My academic and internship experience also includes UI/UX and front-end work on a web-based performance monitoring project, as well as research in information security risk management.",
-      "I value clear documentation, thoughtful communication, attention to detail, and practical use of digital tools.",
+      "I am a Bachelor of Computer Science graduate from Universitas Riau with hands-on experience in organizational administration, HRD activities, documentation, data handling, and operational reporting.",
+      "Through organizational roles as General Secretary of HIMALKOM FMIPA Universitas Riau and HRD Staff at Universitas Riau Cendekia (URC), I coordinated division secretaries, managed official correspondence, compiled comprehensive reports, and supported recruitment and member orientation.",
+      "My background also includes practical administrative experience in purchase orders, invoices, cash records, and sales reports, alongside internal data monitoring at Statistics Indonesia (BPS) Province of Riau.",
+      "Detail-oriented, organized, communicative, and adaptable, with strong skills in Microsoft Office, Google Workspace, and document management. Actively seeking opportunities in HR Operations, HR Administration, and General Administration.",
     ],
     competenciesLabel: "Areas of experience",
     competencies: [
@@ -77,8 +78,6 @@ const en: TranslationContent = {
       "Recruitment Support",
       "Coordination",
       "Communication",
-      "UI/UX Design",
-      "Frontend Development",
     ],
   },
   experience: {
@@ -114,8 +113,9 @@ const en: TranslationContent = {
     eyebrow: "Contact",
     heading: "Let's connect and create meaningful work.",
     description:
-      "I am open to professional opportunities in Administration, HR Operations, Human Resources, and related fields where I can apply my skills, continue developing my competencies, and contribute positively to organizational success.",
+      "I am open to professional opportunities in HR Operations, Human Resources Administration, General Administration, and related fields where I can apply my organizational, documentation, and coordination skills.",
     linkedinCta: "Visit LinkedIn",
+    downloadCvCta: "Download CV",
     copyLinkCta: "Copy portfolio link",
     copyLinkSuccess: "Link copied",
     locationLabel: "Location",
@@ -131,13 +131,13 @@ const en: TranslationContent = {
 const id: TranslationContent = {
   meta: {
     title:
-      "Mutiah Ulfa Sitompul | Administrasi, Operasional SDM & Sistem Informasi",
+      "Mutiah Ulfa Sitompul | Operasional SDM, Administrasi SDM & Administrasi Umum",
     description:
-      "Jelajahi portofolio profesional Mutiah Ulfa Sitompul, dengan pengalaman di bidang administrasi, pengembangan SDM, pengelolaan data, serta proyek UI/UX dan frontend.",
+      "Jelajahi portofolio profesional Mutiah Ulfa Sitompul, Sarjana Ilmu Komputer (S.Kom) dari Universitas Riau dengan pengalaman dalam Operasional SDM, Administrasi SDM, dan Administrasi Umum.",
     ogTitle:
-      "Mutiah Ulfa Sitompul — Administrasi, Operasional SDM & Sistem Informasi",
+      "Mutiah Ulfa Sitompul — Operasional SDM, Administrasi SDM & Administrasi Umum",
     ogDescription:
-      "Portofolio koordinasi administrasi, pengembangan SDM, pengelolaan data, serta pekerjaan UI/UX dan frontend.",
+      "Portofolio profesional Mutiah Ulfa Sitompul, Sarjana Ilmu Komputer dengan pengalaman di bidang Operasional SDM, Administrasi SDM, dan Administrasi Umum.",
   },
   nav: {
     wordmark: "MUTIAH",
@@ -167,20 +167,21 @@ const id: TranslationContent = {
     eyebrow: "Terbuka untuk Peluang",
     headline: profile.headline.id,
     description:
-      "Lulusan Sistem Informasi dengan pengalaman dalam administrasi organisasi, pengembangan SDM, dan proyek digital. Saya membantu menata informasi, proses kerja, dan kolaborasi tim.",
+      "Lulusan Sarjana Ilmu Komputer (S.Kom) dari Universitas Riau dengan pengalaman dalam operasional SDM, administrasi organisasi, dan pengelolaan data. Saya membantu menata informasi, proses kerja, dan kolaborasi tim.",
     primaryCta: "Lihat Pengalaman",
     secondaryCta: "Profil LinkedIn",
+    downloadCvCta: "Unduh CV",
     card: {
       name: "Mutiah Ulfa Sitompul",
       descriptor:
-        "Lulusan Sistem Informasi dengan fokus pada administrasi, operasional SDM, dan pengelolaan data.",
+        "Sarjana Ilmu Komputer dengan fokus pada Operasional SDM, Administrasi SDM, dan Administrasi Umum.",
       gpaLabel: "IPK",
       gpaValue: "3,69",
       gpaMeta: "dari 4,00 · Universitas Riau",
       summaryLabel: "Fokus",
-      summary: "Administrasi · Operasional SDM · Pengelolaan Data",
+      summary: "Operasional SDM · Administrasi SDM · Administrasi Umum",
       locationLabel: "Berdomisili di",
-      location: "Pekanbaru, Riau, Indonesia",
+      location: profile.location.id,
       availabilityLabel: "Status",
       availability: "Terbuka untuk peluang",
     },
@@ -189,10 +190,10 @@ const id: TranslationContent = {
     eyebrow: "Tentang",
     heading: "Terorganisasi dalam bekerja. Selalu ingin belajar.",
     paragraphs: [
-      "Saya merupakan lulusan Sistem Informasi dari Jurusan Ilmu Komputer, Universitas Riau, dengan latar belakang teknologi informasi dan pengolahan data serta minat yang kuat pada bidang Administrasi dan Sumber Daya Manusia (SDM).",
-      "Melalui pengalaman organisasi sebagai Sekretaris Umum HIMALKOM FMIPA Universitas Riau dan staf HRD di Universitas Riau Cendekia (URC), saya memperoleh pengalaman dalam korespondensi, penyusunan laporan, notulensi rapat, pengelolaan arsip, dukungan administrasi rekrutmen, orientasi anggota, dan koordinasi pelatihan.",
-      "Pengalaman akademik dan magang saya juga mencakup pekerjaan UI/UX dan front-end pada proyek pemantauan kinerja berbasis web, serta penelitian mengenai manajemen risiko keamanan informasi.",
-      "Saya mengutamakan dokumentasi yang jelas, komunikasi yang baik, ketelitian, dan pemanfaatan perangkat digital secara praktis.",
+      "Saya merupakan lulusan Sarjana Ilmu Komputer (S.Kom) dari Universitas Riau dengan pengalaman praktis dalam administrasi organisasi, aktivitas HRD, dokumentasi, pengelolaan data, dan pelaporan operasional.",
+      "Melalui pengalaman organisasi sebagai Sekretaris Umum HIMALKOM FMIPA Universitas Riau dan staf HRD di Universitas Riau Cendekia (URC), saya mengoordinasikan sekretaris divisi, mengelola korespondensi dinas, menyusun laporan pertanggungjawaban (~800 halaman), serta mendukung proses rekrutmen dan pelatihan anggota.",
+      "Saya juga memiliki pengalaman administratif dalam pengelolaan purchase order, faktur/invoice, pencatatan kas, dan laporan operasional/penjualan, serta pemantauan data di Badan Pusat Statistik (BPS) Provinsi Riau.",
+      "Memiliki ketelitian tinggi, terorganisasi, komunikatif, dan adaptif, dengan penguasaan Microsoft Office, Google Workspace, dan manajemen dokumen digital. Tertarik pada Operasional SDM, Administrasi SDM, dan Administrasi Umum.",
     ],
     competenciesLabel: "Bidang pengalaman",
     competencies: [
@@ -204,8 +205,6 @@ const id: TranslationContent = {
       "Dukungan Rekrutmen",
       "Koordinasi",
       "Komunikasi",
-      "Desain UI/UX",
-      "Pengembangan Frontend",
     ],
   },
   experience: {
@@ -241,8 +240,9 @@ const id: TranslationContent = {
     eyebrow: "Kontak",
     heading: "Mari terhubung dan berkolaborasi.",
     description:
-      "Saya terbuka terhadap peluang profesional di bidang Administrasi, Operasional SDM, Human Resources, dan bidang terkait. Saya ingin menerapkan keterampilan yang dimiliki, terus mengembangkan kompetensi, dan memberikan kontribusi positif bagi organisasi.",
+      "Saya terbuka terhadap peluang profesional di bidang Operasional SDM, Administrasi SDM, Administrasi Umum, dan bidang terkait untuk menerapkan kemampuan organisasi, dokumentasi, dan koordinasi saya.",
     linkedinCta: "Kunjungi LinkedIn",
+    downloadCvCta: "Unduh CV",
     copyLinkCta: "Salin tautan portofolio",
     copyLinkSuccess: "Tautan disalin",
     locationLabel: "Lokasi",

@@ -11,16 +11,16 @@ export type ButtonVariant = "primary" | "secondary" | "ghost";
 export type ButtonSize = "md" | "lg";
 
 const BASE =
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-sm font-medium " +
-  "transition-colors duration-200 ease-out active:translate-y-px " +
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full font-medium " +
+  "transition-all duration-200 ease-out active:translate-y-px " +
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary " +
   "disabled:pointer-events-none disabled:opacity-45";
 
 const VARIANTS: Record<ButtonVariant, string> = {
-  primary: "bg-primary text-white hover:bg-primary-dark",
+  primary: "bg-[#D47779] text-white hover:bg-[#C26567] shadow-sm shadow-[#D47779]/20 hover:shadow-md",
   secondary:
-    "border border-line bg-surface text-ink hover:border-accent-line hover:bg-accent/50",
-  ghost: "text-ink hover:bg-accent/60 hover:text-primary",
+    "border border-[#F0E3DC] bg-white text-[#421623] hover:border-[#D47779] hover:bg-[#FFF9F5] shadow-2xs",
+  ghost: "text-[#421623] hover:bg-[#FDF5EF] hover:text-[#D47779]",
 };
 
 const SIZES: Record<ButtonSize, string> = {

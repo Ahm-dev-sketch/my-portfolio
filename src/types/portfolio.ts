@@ -58,6 +58,10 @@ export interface SkillGroup {
 export interface Profile {
   name: string;
   pronouns: string;
+  email: string;
+  phone: string;
+  phoneDisplay: string;
+  whatsappUrl: string;
   location: LocalizedText;
   monogram: string;
   linkedinUrl: string;
@@ -93,6 +97,7 @@ export interface TranslationContent {
     description: string;
     primaryCta: string;
     secondaryCta: string;
+    downloadCvCta: string;
     card: {
       name: string;
       descriptor: string;
@@ -145,8 +150,9 @@ export interface TranslationContent {
     heading: string;
     description: string;
     linkedinCta: string;
-    copyLinkCta: string;
-    copyLinkSuccess: string;
+    downloadCvCta: string;
+    copyLinkCta?: string;
+    copyLinkSuccess?: string;
     locationLabel: string;
     footerNote: string;
   };

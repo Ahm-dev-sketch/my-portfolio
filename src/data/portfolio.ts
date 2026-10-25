@@ -9,26 +9,30 @@ import type {
 export const profile: Profile = {
   name: "Mutiah Ulfa Sitompul",
   pronouns: "She/Her",
+  email: "mutiahulfa64@gmail.com",
+  phone: "082276026549",
+  phoneDisplay: "0822-7602-6549",
+  whatsappUrl: "https://wa.me/6282276026549",
   location: {
-    en: "Pekanbaru, Riau, Indonesia",
-    id: "Pekanbaru, Riau, Indonesia",
+    en: "Central Tapanuli Regency, North Sumatra",
+    id: "Kabupaten Tapanuli Tengah, Sumatera Utara",
   },
   monogram: "MUS",
   linkedinUrl: "https://www.linkedin.com/in/mutiah-ulfa-/",
   headline: {
-    en: "Information Systems Graduate | Administration | HR Operations | Data Management",
-    id: "Lulusan Sistem Informasi | Administrasi | Operasional SDM | Pengelolaan Data",
+    en: "Bachelor of Computer Science | HR Operations | HR Administration | General Administration",
+    id: "Sarjana Ilmu Komputer | Operasional SDM | Administrasi SDM | Administrasi Umum",
   },
 };
 
 export const experiences: Experience[] = [
   {
-    id: "bps-uiux-intern",
+    id: "bps-it-intern",
     role: {
-      en: "UI/UX & Front-End Intern",
-      id: "Magang UI/UX & Front-End",
+      en: "Information Technology Intern",
+      id: "Magang Teknologi Informasi",
     },
-    organization: "Badan Pusat Statistik (BPS)",
+    organization: "Badan Pusat Statistik (BPS) Provinsi Riau",
     employmentType: {
       en: "Internship",
       id: "Magang",
@@ -43,20 +47,19 @@ export const experiences: Experience[] = [
     },
     description: {
       en: [
-        "Worked on a web-based performance monitoring project, focusing on UI/UX design and the presentation of performance data. The main challenge was designing an interface that could present information clearly while making the system easy to navigate and use.",
-        "Developed a structured and user-friendly interface with clear navigation and data visualization, helping create a more accessible monitoring experience for users.",
+        "Supported an internal data-monitoring initiative related to performance achievement monitoring and reporting.",
+        "Worked with structured data in an internal monitoring system, strengthening data accuracy, document organization, and administrative reporting skills.",
       ],
       id: [
-        "Berpartisipasi dalam proyek pemantauan kinerja berbasis web dengan fokus pada desain UI/UX dan penyajian data kinerja. Tantangan utamanya adalah merancang antarmuka yang mampu menyajikan informasi secara jelas serta mudah dinavigasi dan digunakan.",
-        "Mengembangkan antarmuka yang terstruktur dan mudah digunakan, dengan navigasi yang jelas serta visualisasi data untuk mendukung pengalaman pemantauan yang lebih mudah diakses.",
+        "Mendukung inisiatif pemantauan data internal terkait capaian kinerja dan pelaporan kinerja instansi.",
+        "Mengelola data terstruktur dalam sistem aplikasi pemantauan internal serta memperkuat ketelitian data, keteraturan dokumen, dan pelaporan administratif.",
       ],
     },
     skills: [
-      "UI/UX Design",
-      "Frontend Development",
-      "CSS",
-      "Laravel",
-      "Data Visualization",
+      "Data Monitoring",
+      "Administrative Reporting",
+      "Data Management",
+      "Information Systems",
     ],
   },
   {
@@ -148,8 +151,8 @@ export const projects: PortfolioProject[] = [
       id: "Aplikasi Pemantauan Kinerja Berbasis Web",
     },
     category: {
-      en: "UI/UX Design & Frontend Development",
-      id: "Desain UI/UX & Pengembangan Frontend",
+      en: "Web Application & Performance Monitoring",
+      id: "Aplikasi Web & Pemantauan Kinerja",
     },
     context: {
       en: "BPS Internship",
@@ -163,17 +166,17 @@ export const projects: PortfolioProject[] = [
       en: [
         "Interface structure and navigation",
         "Performance data presentation",
-        "User experience considerations",
-        "Frontend implementation",
+        "Data accuracy and tracking",
+        "System implementation",
       ],
       id: [
         "Struktur antarmuka dan navigasi",
         "Penyajian data kinerja",
-        "Pertimbangan pengalaman pengguna",
-        "Implementasi frontend",
+        "Ketelitian dan pelacakan data",
+        "Implementasi sistem",
       ],
     },
-    skills: ["Laravel", "CSS", "UI/UX Design", "Data Visualization"],
+    skills: ["Laravel", "CSS", "Data Management", "Data Visualization"],
   },
   {
     id: "org-administration",
@@ -293,14 +296,14 @@ export const projects: PortfolioProject[] = [
 export const education: Education = {
   institution: "Universitas Riau",
   degree: {
-    en: "Bachelor of Computer Science, Information Systems",
-    id: "Sarjana Ilmu Komputer, Sistem Informasi",
+    en: "Bachelor of Computer Science (S.Kom)",
+    id: "Sarjana Ilmu Komputer (S.Kom)",
   },
   period: {
     en: "August 2022 – May 2026",
     id: "Agustus 2022 – Mei 2026",
   },
-  location: "Pekanbaru, Riau, Indonesia",
+  location: "Universitas Riau, Indonesia",
   gpaValue: "3.69",
   gpaScale: "4.00",
   activities: {
@@ -318,8 +321,8 @@ export const education: Education = {
     ],
   },
   summary: {
-    en: "An Information Systems graduate with knowledge of data management, systems analysis, and the use of information technology to support organizational needs. Academic and organizational activities strengthened administrative coordination, document management, reporting, communication, and analytical thinking.\n\nAcademic experience also included research in information security risk management, supporting an interest in structured analysis, risk awareness, and documentation.",
-    id: "Lulusan Sistem Informasi dengan pengetahuan mengenai pengelolaan data, analisis sistem, dan pemanfaatan teknologi informasi untuk mendukung kebutuhan organisasi. Kegiatan akademik dan organisasi memperkuat kemampuan dalam koordinasi administrasi, pengelolaan dokumen, pelaporan, komunikasi, dan pemikiran analitis.\n\nPengalaman akademik juga mencakup penelitian mengenai manajemen risiko keamanan informasi yang mendukung ketertarikan pada analisis terstruktur, kesadaran risiko, dan dokumentasi.",
+    en: "A Bachelor of Computer Science graduate from Universitas Riau with hands-on experience in organizational administration, HRD activities, documentation, data handling, and operational reporting. Academic and organizational activities strengthened administrative coordination, document management, reporting, communication, and analytical thinking.",
+    id: "Lulusan Sarjana Ilmu Komputer (S.Kom) dari Universitas Riau dengan pengalaman praktis dalam administrasi organisasi, aktivitas HRD, dokumentasi, pengolahan data, dan pelaporan operasional. Kegiatan akademik dan organisasi memperkuat kemampuan dalam koordinasi administrasi, pengelolaan dokumen, pelaporan, komunikasi, dan pemikiran analitis.",
   },
 };
 
@@ -357,24 +360,6 @@ export const skillGroups: SkillGroup[] = [
       "Leadership Development",
       "Organizational Coordination",
       "HR Documentation",
-    ],
-  },
-  {
-    id: "digital-technical",
-    title: {
-      en: "Digital & Technical",
-      id: "Digital & Teknis",
-    },
-    skills: [
-      "Information Systems",
-      "Data Processing",
-      "Systems Analysis",
-      "UI/UX Design",
-      "Frontend Development",
-      "CSS",
-      "Laravel",
-      "Data Visualization",
-      "Information Security Risk Management",
     ],
   },
 ];

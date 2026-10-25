@@ -1,14 +1,14 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Menu, X } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { Download, Menu, X } from "lucide-react";
 import { LanguageSwitcher } from "@/components/ui/LanguageSwitcher";
 import { useLanguage } from "@/hooks/useLanguage";
 import { profile } from "@/data/portfolio";
-import { cn } from "@/lib/utils";
 import type { SectionId } from "@/types/portfolio";
 
-/** Sections listed in the navigation. `home` belongs to the wordmark. */
 const NAV_SECTIONS = [
   "about",
   "experience",
@@ -20,13 +20,10 @@ const NAV_SECTIONS = [
 
 type NavSectionId = (typeof NAV_SECTIONS)[number];
 
-const MENU_ID = "mobile-navigation";
-
-/** Brand glyph: this lucide build ships no brand icons. */
 function LinkedInGlyph({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" aria-hidden focusable="false" fill="currentColor" className={className}>
-      <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12Zm1.78 13.02H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45C23.2 24 24 23.23 24 22.27V1.73C24 .77 23.2 0 22.22 0Z" />
+      <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
     </svg>
   );
 }
@@ -38,7 +35,6 @@ export function Navbar() {
   const [activeSection, setActiveSection] = useState<NavSectionId | null>(null);
 
   const toggleRef = useRef<HTMLButtonElement>(null);
-  const panelRef = useRef<HTMLElement>(null);
 
   const links = NAV_SECTIONS.map((id) => ({ id, label: t.nav.items[id] }));
 
@@ -47,16 +43,13 @@ export function Navbar() {
     toggleRef.current?.focus({ preventScroll: true });
   }, []);
 
-  /* Hairline strengthens once the page leaves the top. */
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    const onScroll = () => setScrolled(window.scrollY > 15);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  /* Active section: the last section whose top has passed the probe line.
-     IntersectionObserver only schedules the work; rects keep it exact. */
   useEffect(() => {
     const targets = NAV_SECTIONS.map((id) => ({
       id,
@@ -91,123 +84,63 @@ export function Navbar() {
     };
   }, []);
 
-  /* Lock the page behind the panel without stealing the scrollbar gutter.
-     The lock lives on <html>: locking <body> turns it into a scroll container
-     and unpins the sticky header. */
-  useEffect(() => {
-    if (!open) return;
-
-    const root = document.documentElement;
-    const previousOverflow = root.style.overflow;
-    const previousPadding = root.style.paddingRight;
-    const gutter = window.innerWidth - root.clientWidth;
-
-    root.style.overflow = "hidden";
-    if (gutter > 0) root.style.paddingRight = `${gutter}px`;
-
-    return () => {
-      root.style.overflow = previousOverflow;
-      root.style.paddingRight = previousPadding;
-    };
-  }, [open]);
-
-  /* Escape and outside clicks dismiss the panel. */
-  useEffect(() => {
-    if (!open) return;
-
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        event.preventDefault();
-        dismiss();
-      }
-    };
-
-    const onPointerDown = (event: PointerEvent) => {
-      const target = event.target as Node | null;
-      if (!target) return;
-      if (panelRef.current?.contains(target)) return;
-      if (toggleRef.current?.contains(target)) return;
-      dismiss();
-    };
-
-    document.addEventListener("keydown", onKeyDown);
-    document.addEventListener("pointerdown", onPointerDown);
-
-    return () => {
-      document.removeEventListener("keydown", onKeyDown);
-      document.removeEventListener("pointerdown", onPointerDown);
-    };
-  }, [open, dismiss]);
-
-  /* Rotating to the desktop layout must not leave the page scroll-locked. */
-  useEffect(() => {
-    if (!open) return;
-
-    const query = window.matchMedia("(min-width: 768px)");
-    const onChange = () => {
-      if (query.matches) setOpen(false);
-    };
-
-    query.addEventListener("change", onChange);
-    return () => query.removeEventListener("change", onChange);
-  }, [open]);
-
   return (
     <header
-      className={cn(
-        "sticky top-0 z-50 border-b backdrop-blur-sm",
-        "transition-[background-color,border-color,box-shadow] duration-300 ease-out",
+      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
         scrolled
-          ? "border-line bg-canvas/90 shadow-[0_12px_28px_-26px_rgba(23,35,31,0.55)] backdrop-blur-md"
-          : "border-line/55 bg-canvas/70",
-      )}
+          ? "bg-[#FEF4EA]/90 backdrop-blur-md shadow-2xs py-3.5 border-b border-[#F0E3DC]"
+          : "bg-[#FEF4EA] py-5"
+      }`}
     >
-      <a
-        href="#main-content"
-        className="absolute left-4 top-3 z-[60] -translate-y-20 rounded-sm bg-primary px-4 py-2 text-[0.8125rem] font-medium text-white transition-transform duration-200 focus:translate-y-0"
-      >
-        {t.a11y.skipToContent}
-      </a>
-
-      <div className="container-page flex h-[var(--nav-height)] items-center justify-between gap-3">
-        <a
+      <div className="max-w-[1200px] mx-auto px-6 sm:px-8 flex items-center justify-between">
+        {/* Brand Wordmark with Sparkle Star */}
+        <Link
           href="#home"
+          className="group inline-flex items-center gap-2"
           aria-label={`${t.nav.wordmark} — ${t.nav.items.home}`}
-          className="group -ml-1 flex h-full shrink-0 items-center rounded-xs px-1"
         >
-          <span className="text-[0.8125rem] font-semibold uppercase leading-none tracking-[0.22em] text-ink transition-colors duration-200 group-hover:text-primary">
+          <div className="relative w-5 h-5 shrink-0">
+            <Image
+              src="/star_dusty_rose.png"
+              alt="Sparkle"
+              fill
+              sizes="20px"
+              className="object-contain transition-transform duration-300 group-hover:rotate-45"
+            />
+          </div>
+          <span className="font-serif text-xl sm:text-2xl font-bold tracking-[0.08em] text-[#421623] transition-colors group-hover:text-[#D47779]">
             {t.nav.wordmark}
           </span>
-        </a>
+        </Link>
 
-        <nav aria-label={t.a11y.primaryNavigation} className="hidden md:block">
-          <ul className="flex items-center">
-            {links.map((link) => {
-              const isActive = activeSection === link.id;
-
-              return (
-                <li key={link.id}>
-                  <a
-                    href={`#${link.id}`}
-                    aria-current={isActive ? "true" : undefined}
-                    className={cn(
-                      "relative inline-flex h-9 items-center whitespace-nowrap rounded-xs px-2 text-[0.75rem] font-medium",
-                      "transition-colors duration-200 lg:px-3 lg:text-[0.8125rem]",
-                      "after:absolute after:inset-x-2 after:-bottom-0.5 after:h-px after:origin-left after:bg-primary after:transition-transform after:duration-300 after:ease-out lg:after:inset-x-3",
-                      isActive
-                        ? "text-ink after:scale-x-100"
-                        : "text-muted after:scale-x-0 hover:text-ink hover:after:scale-x-100",
-                    )}
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
+        {/* Desktop Navigation Links */}
+        <nav className="hidden lg:flex items-center gap-7 xl:gap-8">
+          <Link
+            href="#home"
+            className="font-sans text-[14.5px] font-semibold text-[#421623] hover:text-[#D47779] transition-colors"
+          >
+            {t.nav.items.home}
+          </Link>
+          {links.map((link) => {
+            const isActive = activeSection === link.id;
+            return (
+              <Link
+                key={link.id}
+                href={`#${link.id}`}
+                className={`font-sans text-[14.5px] font-semibold transition-colors ${
+                  isActive
+                    ? "text-[#D47779] underline underline-offset-8 decoration-2"
+                    : "text-[#421623] hover:text-[#D47779]"
+                }`}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
         </nav>
 
-        <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+        {/* Right Tools: Language Switcher & Social */}
+        <div className="flex items-center gap-3">
           <LanguageSwitcher />
 
           <a
@@ -215,84 +148,58 @@ export function Navbar() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label={`LinkedIn — ${t.a11y.externalLink}`}
-            className="hidden h-8 w-8 items-center justify-center rounded-xs text-muted transition-colors duration-200 hover:bg-accent/60 hover:text-ink md:inline-flex"
+            className="hidden sm:inline-flex w-9 h-9 items-center justify-center rounded-full bg-white text-[#421623] hover:text-[#D47779] hover:shadow-xs transition-all border border-[#F0E3DC]"
           >
-            <LinkedInGlyph className="h-[15px] w-[15px]" />
-            <span className="sr-only">{t.a11y.externalLink}</span>
+            <LinkedInGlyph className="w-4 h-4" />
           </a>
 
+          {/* Mobile Menu Button */}
           <button
             ref={toggleRef}
             type="button"
-            onClick={() => setOpen((previous) => !previous)}
+            onClick={() => setOpen(!open)}
             aria-expanded={open}
-            aria-controls={MENU_ID}
             aria-label={open ? t.a11y.closeMenu : t.a11y.openMenu}
-            className={cn(
-              "inline-flex h-10 w-10 items-center justify-center rounded-sm border bg-surface text-ink md:hidden",
-              "transition-colors duration-200",
-              open
-                ? "border-accent-line bg-accent/70"
-                : "border-line hover:border-accent-line hover:bg-accent/60",
-            )}
+            className="lg:hidden p-2 text-[#421623] hover:text-[#D47779] transition-colors cursor-pointer"
           >
-            {open ? (
-              <X aria-hidden className="h-[18px] w-[18px]" />
-            ) : (
-              <Menu aria-hidden className="h-[18px] w-[18px]" />
-            )}
+            {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
       </div>
 
-      {open ? (
-        <>
-          <div
-            aria-hidden
-            className="absolute inset-x-0 top-full h-[calc(100dvh-var(--nav-height))] bg-ink/20 backdrop-blur-[2px] md:hidden"
-          />
-          <nav
-            ref={panelRef}
-            id={MENU_ID}
-            aria-label={t.a11y.mobileNavigation}
-            className="absolute inset-x-0 top-full z-10 max-h-[calc(100dvh-var(--nav-height))] overflow-y-auto border-b border-line bg-surface shadow-[0_28px_48px_-32px_rgba(23,35,31,0.45)] md:hidden"
-          >
-            <ul className="container-page grid gap-0.5 py-4">
-              {links.map((link, index) => {
-                const isActive = activeSection === link.id;
-
-                return (
-                  <li key={link.id}>
-                    <a
-                      href={`#${link.id}`}
-                      onClick={dismiss}
-                      aria-current={isActive ? "true" : undefined}
-                      className={cn(
-                        "flex min-h-12 items-center gap-4 rounded-xs px-2 text-[0.9375rem] font-medium",
-                        "transition-colors duration-200 hover:bg-accent/60",
-                        isActive ? "text-primary" : "text-ink",
-                      )}
-                    >
-                      <span
-                        aria-hidden
-                        className={cn(
-                          "w-5 shrink-0 text-[0.6875rem] font-medium tabular-nums tracking-[0.1em]",
-                          isActive ? "text-primary" : "text-muted/70",
-                        )}
-                      >
-                        {String(index + 1).padStart(2, "0")}
-                      </span>
-                      {link.label}
-                    </a>
-                  </li>
-                );
-              })}
-            </ul>
-          </nav>
-        </>
-      ) : null}
+      {/* Mobile Drawer */}
+      {open && (
+        <div className="lg:hidden bg-[#FEF4EA] border-t border-[#F0E3DC] px-6 py-6 shadow-xl animate-in slide-in-from-top-2 duration-200">
+          <div className="flex flex-col gap-4">
+            <Link
+              href="#home"
+              onClick={dismiss}
+              className="font-sans text-base font-semibold text-[#421623] hover:text-[#D47779] py-1"
+            >
+              {t.nav.items.home}
+            </Link>
+            {links.map((link) => (
+              <Link
+                key={link.id}
+                href={`#${link.id}`}
+                onClick={dismiss}
+                className="font-sans text-base font-semibold text-[#421623] hover:text-[#D47779] py-1"
+              >
+                {link.label}
+              </Link>
+            ))}
+            <a
+              href="/cv-mutiah-ulfa-sitompul.pdf"
+              download="CV-Mutiah-Ulfa-Sitompul.pdf"
+              onClick={dismiss}
+              className="inline-flex items-center gap-2 font-sans text-base font-semibold text-[#D47779] py-2 mt-1 border-t border-[#F0E3DC]"
+            >
+              <Download className="w-4 h-4" />
+              <span>{t.hero.downloadCvCta}</span>
+            </a>
+          </div>
+        </div>
+      )}
     </header>
   );
 }
-
-export default Navbar;

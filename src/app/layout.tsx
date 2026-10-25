@@ -1,21 +1,29 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Cormorant, Nunito } from "next/font/google";
 import "./globals.css";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 import { LanguageProvider } from "@/components/providers/LanguageProvider";
 import { translations } from "@/data/translations";
 
-const inter = Inter({
+const cormorant = Cormorant({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-inter",
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-cormorant",
+  display: "swap",
+});
+
+const nunito = Nunito({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+  variable: "--font-nunito",
   display: "swap",
 });
 
 const meta = translations.en.meta;
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://mutiahulfa.vercel.app"),
   title: meta.title,
   description: meta.description,
   applicationName: "Mutiah Ulfa Sitompul — Portfolio",
@@ -34,7 +42,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#F7F8F5",
+  themeColor: "#FEF4EA",
   colorScheme: "light",
 };
 
@@ -44,8 +52,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={inter.variable}>
-      <body className="flex min-h-dvh flex-col bg-canvas font-sans text-ink antialiased">
+    <html lang="en" className={`${cormorant.variable} ${nunito.variable}`}>
+      <body className="min-h-dvh flex flex-col bg-[#FEF4EA] font-sans text-[#421623] antialiased selection:bg-[#F3C7BE] selection:text-[#5C1227]">
         <LanguageProvider>
           <Navbar />
           <main id="main-content" className="flex-1">

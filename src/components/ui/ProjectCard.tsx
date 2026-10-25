@@ -11,37 +11,35 @@ export interface ProjectCardProps {
 
 interface Tone {
   band: string;
-  /** Applied to the abstract plate: glyph, frame and hairline accents. */
   glyph: string;
   hairline: string;
 }
 
 const TONES: Record<ProjectAccent, Tone> = {
   primary: {
-    band: "bg-primary",
+    band: "bg-[#D47779]",
+    glyph: "text-white/90",
+    hairline: "bg-white/20",
+  },
+  sage: {
+    band: "bg-[#FDF5EF]",
+    glyph: "text-[#D47779]",
+    hairline: "bg-[#D47779]/20",
+  },
+  ink: {
+    band: "bg-[#5C1227]",
     glyph: "text-white/90",
     hairline: "bg-white/15",
   },
-  sage: {
-    band: "bg-accent",
-    glyph: "text-primary/80",
-    hairline: "bg-primary/10",
-  },
-  ink: {
-    band: "bg-ink",
-    glyph: "text-accent",
-    hairline: "bg-white/10",
-  },
   sand: {
-    band: "bg-canvas",
-    glyph: "text-ink/70",
-    hairline: "bg-line",
+    band: "bg-[#FEF4EA]",
+    glyph: "text-[#421623]/80",
+    hairline: "bg-[#F0E3DC]",
   },
 };
 
 const SKIPPED_WORDS = new Set(["a", "an", "and", "the", "of", "for", "&"]);
 
-/** Two-letter plate mark derived from the localized title. Decorative only. */
 function plateMark(title: string) {
   const words = title
     .split(/\s+/)
@@ -56,10 +54,6 @@ function plateMark(title: string) {
   return mark || title.slice(0, 2).toUpperCase();
 }
 
-/**
- * Editorial project card: an abstract typographic plate instead of an image.
- * Every accent variant shares the same composition so the grid stays calm.
- */
 export function ProjectCard({ project, className }: ProjectCardProps) {
   const { language, t } = useLanguage();
   const tone = TONES[project.accent];
@@ -70,17 +64,17 @@ export function ProjectCard({ project, className }: ProjectCardProps) {
     <article
       aria-labelledby={titleId}
       className={cn(
-        "group flex h-full min-w-0 flex-col overflow-hidden rounded-lg border border-line bg-surface",
-        "transition-[transform,border-color,box-shadow] duration-300 ease-out",
-        "hover:-translate-y-0.5 hover:border-accent-line hover:shadow-[0_20px_40px_-34px_rgba(23,35,31,0.55)]",
-        "motion-reduce:transform-none",
+        "group flex h-full min-w-0 flex-col overflow-hidden rounded-3xl border border-[#F0E3DC] bg-white",
+        "transition-all duration-300 ease-out",
+        "hover:-translate-y-1 hover:border-[#D47779] hover:shadow-lg hover:shadow-[#D47779]/15",
         className,
       )}
     >
+      {/* Decorative Brand Header */}
       <div
         aria-hidden
         className={cn(
-          "relative h-40 shrink-0 overflow-hidden border-b border-line md:h-44",
+          "relative h-36 shrink-0 overflow-hidden border-b border-[#F0E3DC] md:h-40",
           tone.band,
         )}
       >
@@ -90,16 +84,16 @@ export function ProjectCard({ project, className }: ProjectCardProps) {
 
         <span
           className={cn(
-            "absolute left-5 top-5 flex h-9 w-9 items-center justify-center border border-current",
+            "absolute left-5 top-5 flex h-8 w-8 items-center justify-center rounded-full border border-current",
             tone.glyph,
           )}
         >
-          <span className="h-1.5 w-1.5 bg-current" />
+          <span className="h-1.5 w-1.5 rounded-full bg-current" />
         </span>
 
         <span
           className={cn(
-            "absolute bottom-3 right-5 select-none text-[5rem] font-semibold leading-none tracking-[-0.06em] md:text-[5.5rem]",
+            "absolute bottom-2 right-5 select-none font-serif text-[4.5rem] font-bold leading-none tracking-tight md:text-[5rem]",
             tone.glyph,
           )}
         >
@@ -107,33 +101,35 @@ export function ProjectCard({ project, className }: ProjectCardProps) {
         </span>
       </div>
 
-      <div className="flex flex-1 flex-col p-5 md:p-6">
-        <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[0.75rem] leading-snug">
-          <span className="font-medium text-primary">
+      <div className="flex flex-1 flex-col p-6">
+        <p className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-xs">
+          <span className="font-semibold text-[#D47779]">
             {project.category[language]}
           </span>
-          <span className="text-muted">{project.context[language]}</span>
+          <span className="text-[#7D6B70]/80">·</span>
+          <span className="text-[#7D6B70]">{project.context[language]}</span>
         </p>
 
-        <h3 id={titleId} className="type-card mt-3 text-ink">
+        <h3 id={titleId} className="font-serif text-xl sm:text-2xl font-semibold text-[#421623] mt-2">
           {project.title[language]}
         </h3>
 
-        <p className="type-body mt-2 text-muted">{project.description[language]}</p>
+        <p className="font-sans text-sm text-[#7D6B70] leading-relaxed mt-2.5">
+          {project.description[language]}
+        </p>
 
         <div className="mt-5">
-          <p className="eyebrow text-muted">{t.work.highlightsLabel}</p>
+          <p className="eyebrow text-[#D47779] text-xs font-semibold">
+            {t.work.highlightsLabel}
+          </p>
           <ul className="mt-2.5 space-y-1.5">
             {project.highlights[language].map((highlight) => (
               <li
                 key={highlight}
-                className="flex gap-2.5 text-[0.8125rem] leading-relaxed text-ink/80"
+                className="flex items-start gap-2 text-xs leading-relaxed text-[#421623]/85"
               >
-                <span
-                  aria-hidden
-                  className="mt-[0.62em] h-px w-2.5 shrink-0 bg-accent-line"
-                />
-                <span className="min-w-0">{highlight}</span>
+                <span className="text-[#D47779] mt-1">•</span>
+                <span>{highlight}</span>
               </li>
             ))}
           </ul>
@@ -142,12 +138,12 @@ export function ProjectCard({ project, className }: ProjectCardProps) {
         <div className="mt-auto pt-5">
           <ul
             aria-label={t.work.skillsLabel}
-            className="flex flex-wrap gap-1.5 border-t border-line pt-4"
+            className="flex flex-wrap gap-1.5 border-t border-[#F0E3DC] pt-4"
           >
             {project.skills.map((skill) => (
               <li
                 key={skill}
-                className="rounded-pill border border-line px-2.5 py-1 text-[0.6875rem] leading-none text-muted"
+                className="rounded-full border border-[#F0E3DC] bg-[#FEF4EA] px-2.5 py-1 text-[11px] text-[#421623]"
               >
                 {skill}
               </li>
