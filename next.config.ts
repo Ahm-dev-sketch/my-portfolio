@@ -73,6 +73,10 @@ export default function nextConfig(phase: string): NextConfig {
   const isDev = phase === PHASE_DEVELOPMENT_SERVER;
 
   return {
+    output: "export",
+    images: {
+      unoptimized: true,
+    },
     // Do not advertise the framework on every response.
     poweredByHeader: false,
     // A parent directory has its own lockfile; pin the workspace root to this
@@ -86,8 +90,6 @@ export default function nextConfig(phase: string): NextConfig {
         },
       },
     },
-    cacheComponents: true,
-    partialPrefetching: true,
     async headers() {
       return [{ source: "/:path*", headers: securityHeaders(isDev) }];
     },
