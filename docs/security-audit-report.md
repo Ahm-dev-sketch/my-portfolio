@@ -23,7 +23,7 @@ The application is a fully static, prerendered marketing site. It has **no authe
 
 **Most significant residual risk:** the local Node.js runtime is **v22.13.0**, which is 21 patch releases and **8 security releases behind** the current 22.x LTS (v22.23.4, 2026-10-20). Node ships fixes only in the latest patch, so this runtime is inside the affected line for every 22.x CVE since January 2025 — including **CVE-2026-111497**, a high-severity Brotli decoder out-of-bounds write permitting remote code execution. This is an environment/host issue, not a repository defect, and fixing it requires a Node upgrade outside the codebase. **Status: BLOCKED on human action** (see §G).
 
-**Framework dependencies are current and unaffected:** `next@16.4.3` matches npm `latest` (published 2026-10-23) and is **not** inside any of the 77 advisories affecting the `next` package, including the critical RCEs patched in 16.4.1. `react`/`react-dom@19.3.0` are covered by no advisory affecting the `react` family (`19.3.1` exists but no primary source describes it as a security release).
+**Framework dependencies are current and unaffected:** `next@16.4.3` matches npm `latest` (published 2026-10-23) and is **not** inside any of the 77 advisories affecting the `next` package, including the critical RCEs patched in 16.4.1. `react`/`react-dom@19.3.0` were covered by no advisory affecting the `react` family; they were bumped to **19.3.1** as routine maintenance during this work, with no security claim attached.
 
 `npm audit` reports **0 vulnerabilities** for both the full tree and the production-only tree. That is recorded as evidence, not as proof of security.
 
@@ -34,7 +34,7 @@ The application is a fully static, prerendered marketing site. It has **no authe
 | Item | Value |
 |---|---|
 | Framework | Next.js **16.4.3** (App Router, `src/app`), Turbopack build |
-| React / React DOM | **19.3.0** |
+| React / React DOM | **19.3.1** (bumped from 19.3.0 during this work) |
 | Node.js | **v22.13.0** (`next` requires `>=20.9.0`) |
 | npm | 11.19.0 |
 | Package manager / lockfile | npm, `package-lock.json` present |
@@ -47,7 +47,7 @@ The application is a fully static, prerendered marketing site. It has **no authe
 | Images | No `next/image` usage, no `remotePatterns`, no image optimizer traffic |
 | CI/CD | None present in the repository |
 | Deployment | **Not deployed**; `metadataBase` intentionally unset (no domain supplied) |
-| Version control | **Not a git repository** — no VCS baseline or diff is available |
+| Version control | Git repository initialised during this work: `8e8dc15` (audited baseline), `bbe154a` (React bump) |
 
 ---
 
@@ -99,13 +99,13 @@ The application is a fully static, prerendered marketing site. It has **no authe
 ### F-06 — `react`/`react-dom` 19.3.0 vs 19.3.1
 - **Severity:** Informational
 - **Evidence:** npm `latest` for the line is 19.3.1 (2026-10-14); its release note is an RSC transport-protocol change, and no primary source describes it as a security fix. Advisories for `react` cover `<0.14.0` / `0.4.x` / `0.5.x`; `react-dom` advisories cover `16.0.0–16.4.1`. **19.3.0 is not affected by any live advisory.**
-- **Status:** No upgrade made — an unnecessary dependency change was avoided.
+- **Status:** Upgraded to **19.3.1** as routine maintenance at owner request, with no security claim attached. Verified: `tsc`, ESLint, production build, `npm audit` (0), and a runtime smoke test (clean hydration, EN↔ID switching, headers intact, zero console errors).
 
 ### F-07 — No version-control baseline
 - **Severity:** Informational (process)
 - **Evidence:** `git rev-parse` → `fatal: not a git repository`.
 - **Impact:** no diff-based review is possible; change provenance below is a manually verified file list, and there is no rollback point.
-- **Status:** Unresolved by design (out of scope for this audit).
+- **Status:** **Resolved** — repository initialised and the audited state committed as `8e8dc15` *before* any dependency change, with `bbe154a` for the React bump. Change provenance is now diffable and there is a rollback point.
 
 ### Scope items reviewed and found not applicable
 Authentication/authorization (none exists), session/cookies (none), SQL/NoSQL injection (no database), SSRF (no server-side fetches, no image optimizer, no redirects), path traversal (no filesystem access), deserialization (no user-controlled payloads; the Next advisories concerning `use cache` deserialization and Server Actions do not apply), CSRF (no state-changing endpoints), file uploads (none), cache isolation (static content only; no user data ever enters a shared cache), secret exposure (no `.env*` files, no keys/certificates, no `NEXT_PUBLIC_*`, no `process.env` reads in `src/`), source-map exposure (**0** `.map` files under `.next/static`; the 49 under `.next/server` are not served), CI/CD (no workflows), containers (none).
@@ -115,7 +115,7 @@ Authentication/authorization (none exists), session/cookies (none), SQL/NoSQL in
 | Package | Installed | Latest | Advisory status |
 |---|---|---|---|
 | `next` | 16.4.3 | 16.4.3 | Current. Not inside any of 77 `next` advisories. Criticals patched in 16.4.1 — e.g. GHSA-673q-mjm6-r5xr (`use cache` deserialization RCE, `>=16.0.0 <=16.4.0`), GHSA-2464-fhr4-w9xw (image-optimizer SVG RCE, `>=16.0.0 <=16.4.0`), GHSA-p3m5-59mp-jv5r (Server Actions DoS, `>=16.0.0 <=16.4.0`) — installed version is **outside** all of those ranges. |
-| `react` / `react-dom` | 19.3.0 | 19.3.1 | No live advisory covers 19.3.0 (see F-06). RSC-runtime advisories affect `react-server-dom-*` bundled by Next, not this version pair. |
+| `react` / `react-dom` | 19.3.0 → **19.3.1** | 19.3.1 | No live advisory covered 19.3.0 (see F-06). RSC-runtime advisories affect `react-server-dom-*` bundled by Next, not this version pair. |
 | `motion`, `lucide-react`, `tailwindcss`, `@tailwindcss/turbopack`, `typescript`, `eslint-config-next` | see §B | — | No live advisories. The two `npm`/`eslint` matches encountered were **withdrawn** advisories; installed `npm 11.19.0` and `eslint 9.39.5` are outside the withdrawn ranges anyway. |
 | `unrs-resolver` (dev, transitive) | 1.12.2 | — | Only package in the lockfile with an install script; well-known ESLint resolver postinstall, dev-only, no advisory. |
 
@@ -129,7 +129,9 @@ Primary sources: `https://github.com/vercel/next.js/security/advisories`, `https
 |---|---|
 | `next.config.ts` | Converted to Next's function-form config so the **phase** (`PHASE_DEVELOPMENT_SERVER`) selects the CSP profile. Added `poweredByHeader: false` and a `headers()` layer emitting CSP, HSTS, `nosniff`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy`, COOP, `X-Permitted-Cross-Domain-Policies`, `X-DNS-Prefetch-Control`, `X-XSS-Protection`. Existing `turbopack.root`, CSS loader rule, `cacheComponents`, and `partialPrefetching` were preserved unchanged. |
 | `public/file.svg`, `public/globe.svg`, `public/next.svg`, `public/vercel.svg`, `public/window.svg` | Deleted (unreferenced template assets). |
+| `package.json`, `package-lock.json` | `react` / `react-dom` 19.3.0 → **19.3.1** (routine patch; lockfile updated by npm). |
 | `docs/security-audit-report.md` | This report. |
+| `.git/` | Repository initialised; baseline commit `8e8dc15`, React bump `bbe154a`. |
 
 **Implementation note (important for maintainers):** the dev/prod CSP split cannot use `NODE_ENV` here. Under both `next start` and `npm run start`, `process.env.NODE_ENV` evaluated to `"development"`, and `NEXT_PHASE` was unset, which silently served the weaker dev policy in production. The phase argument that Next passes to the config function is the only trustworthy signal, and both profiles were verified empirically: `next start` → no `'unsafe-eval'`, no `ws:`; `next dev` → both present. Do not "simplify" this back to a `NODE_ENV` check without re-verifying.
 
@@ -158,7 +160,9 @@ No application logic, copy, layout, or business behavior was altered.
 | Functional regression | headless Chrome, production build | **PASS** — 20/20 assertions: h1/section anchors, fonts loaded, Tailwind applied, language switch EN→ID under CSP, clipboard copy, mobile menu, zero console errors, zero failed requests, zero unexpected CSP violations |
 | Browser compatibility of CSP | same harness (Chrome) | **PASS** — no violations on first load; Motion inline styles allowed by `style-src 'unsafe-inline'` |
 | Node runtime patched | version comparison | **FAIL** — v22.13.0 is 8 security releases behind (F-03, not fixable in-repo) |
-| Node runtime upgrade | — | **BLOCKED** — requires host-level change |
+| Node runtime upgrade | official MSI, verified SHA-256 + OpenJS signature | **BLOCKED** — installer staged at `C:\Users\PC\Downloads\node-v22.23.4-x64.msi`; 16 live `node.exe` processes (agent host, MCP servers, npx wrappers) hold the current binaries and this session has no elevation |
+| Runtime smoke test (React 19.3.1) | headless Chrome, production build | **PASS** — HTTP 200, CSP present, no `X-Powered-By`, correct `h1`, EN→ID switch, fonts loaded, 0 hydration errors, 0 console errors |
+| Version control baseline | `git log --oneline` | **PASS** — repo initialised; audited state committed as `8e8dc15`, React bump as `bbe154a` |
 | Container / IaC scan | — | **NOT APPLICABLE** — no container or IaC files |
 | CI/CD workflow audit | — | **NOT APPLICABLE** — no workflows in repo |
 | Auth / CSRF / IDOR regression tests | — | **NOT APPLICABLE** — no auth, sessions, or state-changing endpoints |
@@ -180,7 +184,11 @@ No application logic, copy, layout, or business behavior was altered.
 
 ## G. Next Steps
 
-1. **Upgrade Node.js** to ≥ **22.23.4** (or the current 24.x LTS) for development, any self-hosted `next start`, and CI. Verify with `node -v`, then re-run `npm ci && npm run build`. This closes F-03.
+1. **Install Node.js 22.23.4** (closes F-03). The official installer is already staged and verified: `C:\Users\PC\Downloads\node-v22.23.4-x64.msi` — SHA-256 `ca9303d3a12e8bec6de829fcb7812fc776930e0ce5c030328a24984ef928427e` matches nodejs.org `SHASUMS256.txt`, and the Authenticode signature is valid (OpenJS Foundation). Because 16 `node.exe` processes hold the current binaries, close them first (agent host, MCP servers, npx wrappers), then in an **elevated** PowerShell run:
+   ```powershell
+   msiexec /i "C:\Users\PC\Downloads\node-v22.23.4-x64.msi" /qb
+   ```
+   Verify with `node -v` (expect `v22.23.4`), then `npm ci && npm run build`. A reboot may be requested; do not run this while the agent session depends on the old binary.
 2. **Before deploying:** set `metadataBase` to the real HTTPS origin, deploy, then verify controls from the outside with `curl -I https://<domain>/` that CSP/HSTS/`nosniff`/`X-Frame-Options`/`Referrer-Policy`/`Permissions-Policy` survive the host's edge. Re-check `includeSubDomains` against the real DNS zone.
 3. **Optional CSP upgrade:** move to a nonce-based `script-src` if dynamic rendering becomes acceptable (e.g. via a proxy/middleware that injects a per-request nonce); until then, keep `'unsafe-inline'` and treat F-04 as an accepted limitation.
 4. **Optional:** bump `react`/`react-dom` to 19.3.1 as routine maintenance (not security-driven), then re-run the harness.
